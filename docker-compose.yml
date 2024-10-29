@@ -1,12 +1,10 @@
-version: '2.23.3'
-
 # Don't forget to close down Docker containers before starting up configs:
 # a new one to prevent errors
 services:
   # Backend API
   smart-brain-api-exercise:
     container_name: backend
-    # image: node:20.10.0
+    # image: node:20.13.0
     build: ./
     command: npm start
     working_dir: /usr/src/smart-brain-api-exercise
@@ -21,7 +19,10 @@ services:
   # Postgres
   postgres:
     environment:
-      POSTGRES_URI: postgres://sally:secret@postgres:5432/smart-brain-docker
-    image: postgres
+      POSTGRES_USER: sally
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: smart-brain-docker
+      POSTGRES_HOST: postgres
+    build: ./postgres
     ports:
       - "5432:5432"
